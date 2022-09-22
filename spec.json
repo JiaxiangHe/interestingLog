@@ -289,12 +289,7 @@
             }
           }
         },
-        "summary": "List the API requests made by an organization",
-        "tags": [
-          "organizations",
-          "monitor",
-          "apiRequests"
-        ]
+        "summary": "List the API requests"
       }
     }
   }
