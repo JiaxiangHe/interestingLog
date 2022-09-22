@@ -12,19 +12,11 @@
   "components": {},
   "security": [],
   "paths": {
-    "/organizations/{organizationId}/apiRequests": {
+    "/oneof/oneof": {
       "get": {
-        "description": "List the API requests made by an organization",
-        "operationId": "getOrganizationApiRequests",
+        "description": "List the API oneof",
+        "operationId": "ooooof",
         "parameters": [
-          {
-            "name": "organizationId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          },
           {
             "schema": {
               "type": "string"
@@ -220,7 +212,35 @@
                         "description": "Timestamp, in iso8601 format, indicating when the API request was made."
                       },
                       "responseCode": {
-                        "type": "integer",
+                        "oneOf": [
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "properties": {
+                              "lt": {
+                                "type": "integer",
+                                "description": "comparative operator used to filter for all values less than the given value "
+                              },
+                              "gt": {
+                                "type": "integer",
+                                "description": "comparative operator used to filter for all values greater than the given value"
+                              },
+                              "leq": {
+                                "type": "integer",
+                                "description": "comparative operator used to filter for all values less than or equal to the given value"
+                              },
+                              "geq": {
+                                "type": "integer",
+                                "description": "comparative operator used to filter for all values greater than or equal to the given value"
+                              },
+                              "neq": {
+                                "type": "integer",
+                                "description": "comparative operator used to filter for all values not equal to the given value"
+                              }
+                            }
+                          }
+                        ],
                         "description": "API request response code."
                       },
                       "sourceIp": {
