@@ -1,0 +1,281 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Test oneof",
+    "description": "test",
+    "contact": {
+      "name": "Jiaxiang He"
+    },
+    "version": "1.23.0"
+  },
+  "servers": [],
+  "components": {},
+  "security": [],
+  "paths": {
+    "/organizations/{organizationId}/apiRequests": {
+      "get": {
+        "description": "List the API requests made by an organization",
+        "operationId": "getOrganizationApiRequests",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "t0",
+            "in": "query",
+            "description": "The beginning of the timespan for the data. The maximum lookback period is 31 days from today."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "t1",
+            "in": "query",
+            "description": "The end of the timespan for the data. t1 can be a maximum of 31 days after t0."
+          },
+          {
+            "schema": {
+              "type": "number",
+              "format": "float"
+            },
+            "name": "timespan",
+            "in": "query",
+            "description": "The timespan for which the information will be fetched. If specifying timespan, do not specify parameters t0 and t1. The value must be in seconds and be less than or equal to 31 days. The default is 31 days."
+          },
+          {
+            "schema": {
+              "type": "integer"
+            },
+            "name": "perPage",
+            "in": "query",
+            "description": "The number of entries per page returned. Acceptable range is 3 - 1000. Default is 50."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "startingAfter",
+            "in": "query",
+            "description": "A token used by the server to indicate the start of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "endingBefore",
+            "in": "query",
+            "description": "A token used by the server to indicate the end of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it."
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "adminId",
+            "in": "query",
+            "description": "Filter the results by the ID of the admin who made the API requests"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "path",
+            "in": "query",
+            "description": "Filter the results by the path of the API requests"
+          },
+          {
+            "schema": {
+              "type": "string",
+              "enum": [
+                "GET",
+                "PUT",
+                "POST",
+                "DELETE"
+              ]
+            },
+            "name": "method",
+            "in": "query",
+            "description": "Filter the results by the method of the API requests (must be 'GET', 'PUT', 'POST' or 'DELETE')"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "sourceIp",
+            "in": "query",
+            "description": "Filter the results by the IP address of the originating API request"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "name": "userAgent",
+            "in": "query",
+            "description": "Filter the results by the user agent string of the API request"
+          },
+          {
+            "schema": {
+              "type": "integer",
+              "enum": [
+                0,
+                1
+              ]
+            },
+            "name": "version",
+            "in": "query",
+            "description": "Filter the results by the API version of the API request"
+          },
+          {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "name": "operationIds",
+            "in": "query",
+            "description": "Filter the results by one or more operation IDs for the API request"
+          },
+          {
+            "name": "responseCode",
+            "in": "query",
+            "description": "Filter the results by the response code of the API requests",
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "properties": {
+                    "lt": {
+                      "type": "integer",
+                      "description": "comparative operator used to filter for all values less than the given value "
+                    },
+                    "gt": {
+                      "type": "integer",
+                      "description": "comparative operator used to filter for all values greater than the given value"
+                    },
+                    "leq": {
+                      "type": "integer",
+                      "description": "comparative operator used to filter for all values less than or equal to the given value"
+                    },
+                    "geq": {
+                      "type": "integer",
+                      "description": "comparative operator used to filter for all values greater than or equal to the given value"
+                    },
+                    "neq": {
+                      "type": "integer",
+                      "description": "comparative operator used to filter for all values not equal to the given value"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "adminId": {
+                        "type": "string",
+                        "description": "Database ID for the admin user who made the API request."
+                      },
+                      "method": {
+                        "type": "string",
+                        "description": "HTTP method used in the API request."
+                      },
+                      "host": {
+                        "type": "string",
+                        "description": "The host which the API request was directed at."
+                      },
+                      "path": {
+                        "type": "string",
+                        "description": "The API request path."
+                      },
+                      "queryString": {
+                        "type": "string",
+                        "description": "The query string sent with the API request."
+                      },
+                      "userAgent": {
+                        "type": "string",
+                        "description": "The API request user agent."
+                      },
+                      "ts": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Timestamp, in iso8601 format, indicating when the API request was made."
+                      },
+                      "responseCode": {
+                        "type": "integer",
+                        "description": "API request response code."
+                      },
+                      "sourceIp": {
+                        "type": "string",
+                        "description": "Public IP address from which the API request was made."
+                      },
+                      "version": {
+                        "type": "integer",
+                        "enum": [
+                          0,
+                          1
+                        ],
+                        "description": "API version of the endpoint."
+                      },
+                      "operationId": {
+                        "type": "string",
+                        "description": "Operation ID for the endpoint."
+                      }
+                    }
+                  }
+                },
+                "example": [
+                  {
+                    "adminId": "212406",
+                    "method": "GET",
+                    "host": "server.example.com",
+                    "path": "/api/v1/organizations/12345/apiRequests",
+                    "queryString": "timespan=604800",
+                    "userAgent": "PostmanRuntime/7.6.0",
+                    "ts": "2018-02-11T00:00:00.090210Z",
+                    "responseCode": 200,
+                    "sourceIp": "123.123.123.1",
+                    "version": 1,
+                    "operationId": "getOrganizationApiRequests"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "Link": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "A comma-separated list of first, last, prev, and next relative links used for subsequent paginated requests."
+              }
+            }
+          }
+        },
+        "summary": "List the API requests made by an organization",
+        "tags": [
+          "organizations",
+          "monitor",
+          "apiRequests"
+        ]
+      }
+    }
+  }
+}
